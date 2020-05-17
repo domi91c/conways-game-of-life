@@ -8,10 +8,36 @@
     <style type="text/css" media="screen">
       body {
       }
+
+      #diagnostics {
+          font-size: 32px;
+	  font-family: sans-serif;
+          float: left
+      }
+      
+      #start-button {
+          float: right;
+          padding: 10px;
+          position: absolute;
+          bottom: 20px;
+          right: 120px;
+          font-size: 20px;
+      }
+
+      #reset-button {
+          float: right;
+          padding: 10px;
+          position: absolute;
+          bottom: 20px;
+          right: 36px;
+          font-size: 20px;
+      }
     </style>
 </head>
 <body>
     <canvas></canvas>
-    <p id="diagnostics"></p>
+    <h1 id="diagnostics"></h1>
+    <button id="reset-button">Reset</button>
+    <button id="start-button">Start</button>
 </body>
 </html>

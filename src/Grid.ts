@@ -1,17 +1,14 @@
 import Box from './Box';
-import App from './index';
 
 export default class Grid {
   ctx: CanvasRenderingContext2D
   boxes: Array<Array<Box>> = [[]]
   boxSize: number
   rowSize: number
-  diagnostics: HTMLElement;
 
-  constructor(app: App) {
+  constructor(ctx: CanvasRenderingContext2D) {
     Box.grid = this
-    this.ctx = app.ctx;
-    this.diagnostics = app.diagnostics;
+    this.ctx = ctx;
     this.boxSize = 20;
     this.rowSize = 35;
     this.draw();

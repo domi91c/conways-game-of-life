@@ -9,6 +9,7 @@ export default class Box {
   y: number;
   size: number;
   on: boolean;
+  numberOfNeighbours: any;
 
   constructor(
     row: number,
@@ -51,13 +52,42 @@ export default class Box {
     this.render()
   }
 
+  turnOff() {
+    this.on = false
+    this.render()
+  }
 
   /**
-   * @returns Count of activated neighbours
+   * @returns Count of active neighbours
    */
-  get neighbours() {
-    debugger;
+  get neighbours(): Array<Box> {
+    let boxes = Box.grid.boxes
 
-    return count
+    debugger;
+    // left side
+    let topL: Box | undefined = boxes[this.row - 1] ? boxes[this.row - 1][this.col + 1] : undefined
+    let midL: Box | undefined = boxes[this.row - 1] ? boxes[this.row - 1][this.col] : undefined
+    let botL: Box | undefined = boxes[this.row - 1] ? boxes[this.row - 1][this.col - 1] : undefined
+
+    // right side
+    let topR: Box | undefined = boxes[this.row + 1] ? boxes[this.row + 1][this.col + 1] : undefined
+    let midR: Box | undefined = boxes[this.row + 1] ? boxes[this.row + 1][this.col] : undefined
+    let botR: Box | undefined = boxes[this.row + 1] ? boxes[this.row + 1][this.col - 1] : undefined
+
+    // top and bottom
+    let topC: Box | undefined = boxes[this.row] ? boxes[this.row][this.col + 1] : undefined
+    let botC: Box | undefined = boxes[this.row] ? boxes[this.row][this.col - 1] : undefined
+
+    let filteredBoxes = [topL, topC, topR, midR, botR, botC, botL, midL]
+      .filter((box: Box | undefined) => {
+        box !== undefined
+      })
+
+    return filteredBoxes
+  }
+
+  highlight() {
+    this.ctx.fillStyle = '#ff0000';
+    this.ctx.fillRect(this.x, this.y, this.size, this.size);
   }
 }

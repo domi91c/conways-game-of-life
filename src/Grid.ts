@@ -9,16 +9,16 @@ export default class Grid {
   constructor(ctx: CanvasRenderingContext2D) {
     Box.grid = this
     this.ctx = ctx;
-    this.boxSize = 20;
-    this.rowSize = 35;
+    this.boxSize = 10;
+    this.rowSize = 70;
     this.draw();
   }
 
   private draw() {
-    for (let xI = 0; xI < this.rowSize; xI++) {
+    for (let yI = 0; yI < this.rowSize; yI++) {
       this.boxes.push([])
-      for (let yI = 0; yI < this.rowSize; yI++) {
-        this.boxes[xI].push(
+      for (let xI = 0; xI < this.rowSize; xI++) {
+        this.boxes[yI].push(
           new Box(
             yI,
             xI,
@@ -28,5 +28,19 @@ export default class Grid {
         );
       }
     }
+  }
+
+  start(): any {
+    this.boxes.forEach((row: Array<Box>) => {
+      row.forEach((box: Box) => {
+        box.generation()
+      })
+    });
+    this.boxes.forEach((row: Array<Box>) => {
+      row.forEach((box: Box) => {
+        box.transferState()
+        box.render()
+      })
+    });
   }
 }

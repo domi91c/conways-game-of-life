@@ -39,7 +39,7 @@ export default class App {
   reset() {
     this.grid.boxes.forEach((row: Array<Box>) => {
       row.forEach((box: Box) => {
-        box.state = false
+        box.state = Math.random() >= 0.5
       })
     })
   }

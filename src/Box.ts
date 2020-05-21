@@ -86,26 +86,18 @@ export default class Box {
   get neighbours(): Array<Box> {
     let boxes = Box.grid.boxes
 
-    // left side
-    let topL: Box | undefined = boxes[this.row - 1] ? boxes[this.row - 1][this.col - 1] : undefined
-    let midL: Box | undefined = boxes[this.row - 1] ? boxes[this.row - 1][this.col] : undefined
-    let botL: Box | undefined = boxes[this.row - 1] ? boxes[this.row - 1][this.col + 1] : undefined
+    let neighbourCoords = [
+      {x: -1, y: -1}, {x: 0, y: -1}, {x: +1, y: -1}, {x: +1, y: 0},
+      {x: +1, y: +1}, {x: 0, y: +1}, {x: -1, y: +1}, {x: -1, y: 0},
+    ]
 
-    // right side
-    let topR: Box | undefined = boxes[this.row + 1] ? boxes[this.row + 1][this.col - 1] : undefined
-    let midR: Box | undefined = boxes[this.row + 1] ? boxes[this.row + 1][this.col] : undefined
-    let botR: Box | undefined = boxes[this.row + 1] ? boxes[this.row + 1][this.col + 1] : undefined
+    let boxOffset = (colOffset: number, rowOffset: number): Box | undefined => {
+      return boxes[this.row + rowOffset] ? boxes[this.row + rowOffset][this.col + colOffset] : undefined
+    }
 
-    // top and bottom
-    let topC: Box | undefined = boxes[this.row] ? boxes[this.row][this.col - 1] : undefined
-    let botC: Box | undefined = boxes[this.row] ? boxes[this.row][this.col + 1] : undefined
-
-    let filteredBoxes = [topL, topC, topR, midR, botR, botC, botL, midL]
-      .filter((box: Box | undefined) => {
-        return box !== undefined && box.state
-      })
-
-    return filteredBoxes
+    return neighbourCoords
+      .map((coords) => boxOffset(coords.x, coords.y))
+      .filter((box: Box | undefined) => box !== undefined && box.state)
   }
 
   highlight() {

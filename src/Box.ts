@@ -39,6 +39,9 @@ export default class Box {
     }
   }
 
+  /**
+   * Handles one iteration of Conway's rules
+   */
   generation() {
     if (this.state) {
       if (this.neighbours.length < 2 || this.neighbours.length > 3) {
